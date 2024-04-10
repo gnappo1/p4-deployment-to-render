@@ -76,9 +76,18 @@ def after_request(response):  #! notice the response argument automatically pass
 
 #!======================
 #! API ROUTES
-@app.route("/")
-def welcome():
-    return render_template("home.html", name="Matteo")
+# @app.route("/")
+# def welcome():
+#     return render_template("home.html", name="Matteo")
+
+
+@app.route("/") #! render React not the dummy template page in Flask
+@app.route("/production/<int:id>")
+@app.route("/production/<int:id>/edit")
+@app.route("/productions/new")
+@app.route("/registration")
+def index(id=0):
+    return render_template("index.html")
 
 
 class Productions(Resource):
@@ -238,7 +247,7 @@ class CrewMemberById(Resource):
 api.add_resource(CrewMemberById, "/crew-members/<int:id>")
 
 
-@app.route("/api/v1/signup", methods=["POST"])
+@app.route("/signup", methods=["POST"])
 def signup():
     try:
         data = request.json
@@ -252,7 +261,7 @@ def signup():
         db.session.rollback()
         return {"message": str(e)}, 422
 
-@app.route("/api/v1/login", methods=["POST"])
+@app.route("/login", methods=["POST"])
 def login():
     try:
         data = request.json #! we have username and password
@@ -265,7 +274,7 @@ def login():
     except Exception as e:
         return {"message": str(e)}, 422
 
-@app.route("/api/v1/logout", methods=["DELETE"])
+@app.route("/logout", methods=["DELETE"])
 def logout():
     try:
         if "user_id" in session:
@@ -274,7 +283,7 @@ def logout():
     except Exception as e:
         raise e
 
-@app.route("/api/v1/me", methods=["GET"])
+@app.route("/me", methods=["GET"])
 def me():
     #! check if we have a user_id key inside session
     if "user_id" in session:

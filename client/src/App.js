@@ -51,7 +51,7 @@ function App() {
 
   const handleEdit = (production) => {
     setProductionEdit(production)
-    navigate(`/productions/${production.id}/edit`)
+    navigate(`/production/${production.id}/edit`)
   }
 
   return (

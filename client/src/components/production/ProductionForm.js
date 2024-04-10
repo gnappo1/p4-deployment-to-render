@@ -67,7 +67,7 @@ function ProductionForm() {
                 resp.json().then(createdProduction => {
                   addProduction(createdProduction)
                   return createdProduction
-                }).then(createdProduction => navigate(`/productions/${createdProduction.id}`))
+                }).then(createdProduction => navigate(`/production/${createdProduction.id}`))
               } else {
                 return resp.json().then(errorObj => {
                   let finalError = ""

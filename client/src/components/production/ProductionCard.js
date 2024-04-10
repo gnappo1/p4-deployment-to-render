@@ -7,7 +7,7 @@ function ProductionCard({production}) {
     console.log(production)
     return (
       <Card id={id}>
-        <Link to={`/productions/${id}`}> 
+        <Link to={`/production/${id}`}> 
           <div>
             <h2>{title}</h2>
             <p>{genre}</p>

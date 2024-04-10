@@ -7,8 +7,14 @@ from flask_session import Session
 from flask_bcrypt import Bcrypt
 from os import environ
 
-app = Flask(__name__)
-app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///theater.db"
+app = Flask(
+    __name__,
+    static_url_path="",
+    static_folder="../client/build",
+    template_folder="../client/build",
+)
+
+app.config["SQLALCHEMY_DATABASE_URI"] = environ.get("DATABASE_URI")
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 app.config["SQLALCHEMY_ECHO"] = True
 app.secret_key = environ.get("SESSION_SECRET")
@@ -21,7 +27,7 @@ app.config["SESSION_SQLALCHEMY"] = db
 # flask-migrate connection to app
 migrate = Migrate(app, db)
 # flask-restful connection to app
-api = Api(app, prefix="/api/v1")
+api = Api(app)#, prefix="/api/v1")
 # flask-marshmallow connection to app
 ma = Marshmallow(app)
 # flask-session

@@ -18,6 +18,8 @@ flask-bcrypt = "*"
 flask-session = "*"
 cryptography = "*"
 requests = "*"
+psycopg2 = "*"
+gunicorn = "*"
 
 [dev-packages]
 
